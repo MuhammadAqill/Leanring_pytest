@@ -1,4 +1,5 @@
 import pytest
+import os
 
 def test_simple_add():
     assert 1 + 1 == 2
@@ -9,6 +10,10 @@ def test_failing():
     assert 'a' == 'b' # kita mark untuk skip
                       # output akan keluar s
                       # s -> skip
+
+@pytest.mark.skipif(os.name == "posix", reason="Does not run on mac")
+def test_skipif_failing():
+    assert 'a' == 'b'
 
 @pytest.mark.xfail
 def test_x_failing():
@@ -25,3 +30,4 @@ def test_X_failing():
                       # bermaksud benar
                       # tetapi kita mark ia untuk salah
                       # dengan ini kita tahu ia benar tetapi kita set ia salah dengan @pytest.mark.xfail
+
